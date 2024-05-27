@@ -1,6 +1,7 @@
-package org.example;
+package org.example.entity;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class ProductEntity {
     private Long id;
@@ -25,7 +26,19 @@ public class ProductEntity {
                 '}';
     }
 
-    public String toCsv(){
+    public String toCsv() {
         return id + "," + name + "," + value + "," + quantity;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public static ProductEntity csvToObject(List<String> product) {
+        return new ProductEntity(
+                Long.valueOf(product.get(0)),
+                product.get(1),
+                new BigDecimal(product.get(2)),
+                Long.valueOf(product.get(3)));
     }
 }
