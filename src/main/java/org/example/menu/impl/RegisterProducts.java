@@ -1,59 +1,34 @@
 package org.example.menu.impl;
 
-import org.example.CsvOperations;
 import org.example.menu.EventMenu;
-import org.example.entity.ProductEntity;
+import org.example.model.Product;
 
-import java.io.*;
-import java.util.Scanner;
+import java.io.IOException;
+import java.math.BigDecimal;
 
-import static org.example.IoOperations.getReader;
-import static org.example.IoOperations.getWriter;
+import static org.example.operations.CsvOperations.findAll;
+import static org.example.operations.CsvOperations.save;
+import static org.example.operations.IoOperations.input;
 
 public class RegisterProducts implements EventMenu {
     @Override
     public void execute(Object object) throws IOException {
 
-        var scanner = new Scanner(System.in);
-        var csvOperations = new CsvOperations();
+        var name = input("Nome: ", String.class);
 
-        var reader = getReader("product.csv");
+        var value = input("Valor: ", BigDecimal.class);
 
-        var content = reader.lines().toList();
+        var quantity = input("Quantidade: ", Long.class);
 
-        var writer = getWriter("product.csv");
+        var products = findAll();
 
-        System.out.println("Nome: ");
-        var name = scanner.nextLine();
+        var id = products.size() + 1L;
 
-        System.out.println("Valor: ");
-        var value = scanner.nextBigDecimal();
-
-        System.out.println("Quantidade: ");
-        var quantity = scanner.nextLong();
-
-        scanner.close();
-
-        var newProduct = new ProductEntity(1L, name, value, quantity);
+        var newProduct = new Product(id, name, value, quantity);
 
         System.out.println(newProduct);
 
-        csvOperations.findAll().forEach(product -> {
-            try {
-                writer.write(product.toCsv());
-                writer.newLine();
-            } catch (IOException ignored) {}
-        });
-
-        writer.write(newProduct.toCsv());
-
-        writer.close();
+        save(products, newProduct);
 
     }
-    /*
-    public static Object input(String print){ //TODO IMPLEMENTAR
-        var scanner = new Scanner(System.in);
-        return scanner.nextLine();
-    }
-     */
 }

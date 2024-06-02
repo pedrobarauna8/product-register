@@ -1,24 +1,35 @@
 package org.example.menu.impl;
 
-import org.example.CsvOperations;
 import org.example.menu.EventMenu;
+import org.example.model.Product;
 
 import java.io.IOException;
-import java.util.Scanner;
+import java.math.BigDecimal;
+
+import static org.example.operations.CsvOperations.*;
+import static org.example.operations.IoOperations.input;
 
 public class EditProduct implements EventMenu {
     @Override
     public void execute(Object object) throws IOException {
 
-        var scanner = new Scanner(System.in);
-        var operation = new CsvOperations();
+        var code = input("Qual o Cod?: ", Long.class);
 
-        System.out.println("Qual o Cod?: ");
-        var code = scanner.nextLong();
-
-        var product = operation.findById(code);
+        var product = findById(code);
 
         System.out.println(product);
+
+        var name = input("Nome: ", String.class);
+
+        var value = input("Valor: ", BigDecimal.class);
+
+        var quantity = input("Quantidade: ", Long.class);
+
+        var editedProduct = new Product(code, name, value, quantity);
+
+        var products = findAllWithoutThisId(code);
+
+        save(products, editedProduct);
 
     }
 }

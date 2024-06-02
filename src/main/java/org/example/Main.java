@@ -1,27 +1,27 @@
 package org.example;
 
-import org.example.menu.Menu;
-
 import java.io.IOException;
-import java.util.Scanner;
+
+import static org.example.menu.Menu.executeMenu;
+import static org.example.operations.IoOperations.input;
 
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        var scanner = new Scanner(System.in);
-        var menu = new Menu();
+        Integer selection = 0;
 
-        System.out.print("""
-                Escolha uma opção:
-                1 - Listar produtos
-                2 - Cadastrar novo produto
-                3 - Editar produto
-                4 - Excluir
-                5 - Sair
-                """);
+        while (selection != 5) {
 
-        var selection = scanner.nextInt();
+            selection = input("""
+                    Escolha uma opção:
+                    1 - Listar produtos
+                    2 - Cadastrar novo produto
+                    3 - Editar produto
+                    4 - Excluir
+                    5 - Sair
+                    """, Integer.class);
 
-        menu.executeMenu(selection);
+            executeMenu(selection);
+        }
     }
 }
