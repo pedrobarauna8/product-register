@@ -16,10 +16,11 @@ public class Main {
                     2 - Cadastrar novo produto
                     3 - Editar produto
                     4 - Excluir
-                    5 - Sair
+                    5 - Vender
+                    6 - Sair
                     """, Integer.class);
 
-            if (selection.equals(5)) break;
+            if (selection.equals(6)) break;
 
             try {
 

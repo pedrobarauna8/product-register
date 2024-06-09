@@ -1,9 +1,6 @@
 package org.example.menu;
 
-import org.example.menu.impl.DeleteProduct;
-import org.example.menu.impl.EditProduct;
-import org.example.menu.impl.ListProducts;
-import org.example.menu.impl.RegisterProducts;
+import org.example.menu.impl.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,6 +13,7 @@ public class Menu {
         put(2, new RegisterProducts());
         put(3, new EditProduct());
         put(4, new DeleteProduct());
+        put(5, new ProductsCart());
     }};
 
     public static void executeMenu(Integer option) throws IOException {

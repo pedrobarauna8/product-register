@@ -6,7 +6,8 @@ import java.util.Scanner;
 
 public class IoOperations<T> {
     public static BufferedReader getReader(String file) {
-        try (var fileReader = new FileReader(file)) {
+        try {
+            var fileReader = new FileReader(file);
             return new BufferedReader(fileReader);
         } catch (IOException e) {
             throw new RuntimeException("Arquivo não encontrado");
@@ -14,7 +15,8 @@ public class IoOperations<T> {
     }
 
     public static BufferedWriter getWriter(String file) {
-        try (var fileWrite = new FileWriter(file)) {
+        try {
+            var fileWrite = new FileWriter(file);
             return new BufferedWriter(fileWrite);
         } catch (IOException e) {
             throw new RuntimeException("Arquivo não encontrado");

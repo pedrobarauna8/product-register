@@ -9,12 +9,12 @@ import static org.example.operations.IoOperations.input;
 
 public class DeleteProduct implements EventMenu {
 
+    public static final String FILE = "product.csv";
+
     @Override
     public void execute(Object object) throws IOException {
 
-        final String file = "product.csv";
-
-        var csvOperations = new CsvOperations(file);
+        var csvOperations = new CsvOperations(FILE);
 
         var code = input("Qual o cód?: ", Long.class);
 

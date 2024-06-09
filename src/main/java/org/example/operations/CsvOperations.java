@@ -72,6 +72,24 @@ public class CsvOperations {
         return list;
     }
 
+    public Product findByName(String name) throws IOException {
+
+        var reader = getReader(file);
+
+        var content = reader.lines().toList();
+
+        reader.close();
+
+        for (String line : content) {
+            var product = Arrays.stream(line.split(",")).toList();
+            var productEntity = Product.csvToObject(product);
+            if (productEntity.name().equalsIgnoreCase(name)) {
+                return productEntity;
+            }
+        }
+        return null;
+    }
+
     public void save(ArrayList<Product> products) throws IOException {
 
         var writer = getWriter(file);
