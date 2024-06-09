@@ -20,6 +20,10 @@ public class Menu {
 
     public static void executeMenu(Integer option) throws IOException {
 
+        if (!implementations.containsKey(option)){
+            throw new IllegalArgumentException("Opção invalida");
+        }
+
         var event = implementations.get(option);
 
         event.execute(option);

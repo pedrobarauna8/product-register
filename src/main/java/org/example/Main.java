@@ -8,11 +8,9 @@ import static org.example.operations.IoOperations.input;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        Integer selection = 0;
+        while (true) {
 
-        while (selection != 5) {
-
-            selection = input("""
+            Integer selection = input("""
                     Escolha uma opção:
                     1 - Listar produtos
                     2 - Cadastrar novo produto
@@ -21,7 +19,15 @@ public class Main {
                     5 - Sair
                     """, Integer.class);
 
-            executeMenu(selection);
+            if (selection.equals(5)) break;
+
+            try {
+
+                executeMenu(selection);
+
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }

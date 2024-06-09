@@ -11,9 +11,15 @@ import static org.example.operations.IoOperations.getWriter;
 
 public class CsvOperations {
 
-    public static ArrayList<Product> findAll() throws IOException {
+    private final String file;
 
-        var reader = getReader("product.csv");
+    public CsvOperations(String file) {
+        this.file = file;
+    }
+
+    public ArrayList<Product> findAll() throws IOException {
+
+        var reader = getReader(file);
 
         var content = reader.lines().toList();
 
@@ -28,9 +34,9 @@ public class CsvOperations {
         return list;
     }
 
-    public static Product findById(Long id) throws IOException {
+    public Product findById(Long id) throws IOException {
 
-        var reader = getReader("product.csv");
+        var reader = getReader(file);
 
         var content = reader.lines().toList();
 
@@ -39,16 +45,16 @@ public class CsvOperations {
         for (String line : content) {
             var product = Arrays.stream(line.split(",")).toList();
             var productEntity = Product.csvToObject(product);
-            if (productEntity.getId().equals(id)) {
+            if (productEntity.id().equals(id)) {
                 return productEntity;
             }
         }
         return null;
     }
 
-    public static ArrayList<Product> findAllWithoutThisId(Long id) throws IOException {
+    public ArrayList<Product> findAllWithoutThisId(Long id) throws IOException {
 
-        var reader = getReader("product.csv");
+        var reader = getReader(file);
 
         var content = reader.lines().toList();
 
@@ -59,16 +65,16 @@ public class CsvOperations {
         for (String line : content) {
             var product = Arrays.stream(line.split(",")).toList();
             var productEntity = Product.csvToObject(product);
-            if (!productEntity.getId().equals(id)) {
+            if (!productEntity.id().equals(id)) {
                 list.add(productEntity);
             }
         }
         return list;
     }
 
-    public static void save(ArrayList<Product> products) throws IOException {
+    public void save(ArrayList<Product> products) throws IOException {
 
-        var writer = getWriter("product.csv");
+        var writer = getWriter(file);
 
         products.forEach(product -> {
             try {
@@ -81,9 +87,9 @@ public class CsvOperations {
         writer.close();
     }
 
-    public static void save(ArrayList<Product> products, Product product) throws IOException {
+    public void save(ArrayList<Product> products, Product product) throws IOException {
 
-        var writer = getWriter("product.csv");
+        var writer = getWriter(file);
 
         products.forEach(p -> {
             try {
